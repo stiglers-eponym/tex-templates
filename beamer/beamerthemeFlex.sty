@@ -1,0 +1,277 @@
+% This theme aims for providing a similar text area size for
+% different page geometries. It's not the best style you can
+% find, but for some purposes it might be helpful.
+
+\mode<presentation>
+
+\useoutertheme{infolines}
+
+\ifdim\beamer@paperwidth=16.00cm
+\ifdim\beamer@paperheight=9.00cm
+  % 16:9
+  \setbeamersize{sidebar width left=7.5mm, sidebar width right=7.5mm}
+  \setbeamersize{text margin left=4.5mm, text margin right=4.5mm}
+  % Make the title smaller
+  \setbeamerfont{section in head/foot}   {size*={6pt}{8pt}}
+  \setbeamerfont{subsection in head/foot}{size*={6pt}{8pt}}
+  \setbeamerfont{author in head/foot}    {size*={6pt}{8pt}}
+  \setbeamerfont{title in head/foot}     {size*={6pt}{8pt}}
+  \setbeamerfont{date in head/foot}      {size*={6pt}{8pt}}
+  \setbeamerfont{frametitle}{size*={14pt}{16pt}}
+  \makeatletter
+  \setbeamertemplate{headline}
+  {%
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.15mm,dp=.85mm,right]{section in head/foot}%
+        \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.15mm,dp=.85mm,left]{subsection in head/foot}%
+        \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+      \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+  }
+  \setbeamertemplate{footline}
+  {%
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.05mm,dp=.95mm,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.05mm,dp=.95mm,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.05mm,dp=.95mm,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex} 
+      \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+  }
+  \setbeamertemplate{frametitle}{%
+    \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+    \@tempdima=\textwidth%
+    \advance\@tempdima by\beamer@leftmargin%
+    \advance\@tempdima by\beamer@rightmargin%
+    \begin{beamercolorbox}[sep=2.5mm,ht=7.5mm,leftskip=3.5mm,wd=\the\@tempdima]{frametitle}
+      \usebeamerfont{frametitle}%
+      \vbox{}\vskip-1ex%
+      \if@tempswa\else\csname beamer@fteleft\endcsname\fi%
+      \strut\insertframetitle\par%
+      {%
+        \ifx\insertframesubtitle\@empty%
+        \else%
+        {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\par}%
+        \fi
+      }%
+      \vskip-1ex%
+      \if@tempswa\else\vskip-2.5mm\fi% set inside beamercolorbox... evil here...
+    \end{beamercolorbox}%
+  }
+  \makeatother
+  % \textwidth = 136mm
+\else\ifdim\beamer@paperheight=10.00cm%
+  % 16:10
+  \setbeamersize{sidebar width left=6mm, sidebar width right=6mm}
+  \setbeamersize{text margin left=6mm, text margin right=6mm}
+  % Make the title smaller
+  \setbeamerfont{section in head/foot}   {size*={6pt}{8pt}}
+  \setbeamerfont{subsection in head/foot}{size*={6pt}{8pt}}
+  \setbeamerfont{author in head/foot}    {size*={6pt}{8pt}}
+  \setbeamerfont{title in head/foot}     {size*={6pt}{8pt}}
+  \setbeamerfont{date in head/foot}      {size*={6pt}{8pt}}
+  \setbeamerfont{frametitle}{size*={14.4pt}{16pt}}
+  \makeatletter
+  \setbeamertemplate{headline}
+  {%
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.2mm,dp=.9mm,right]{section in head/foot}%
+        \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.2mm,dp=.9mm,left]{subsection in head/foot}%
+        \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+      \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+  }
+  \setbeamertemplate{footline}
+  {%
+    \leavevmode%
+    \hbox{%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.1mm,dp=1mm,center]{author in head/foot}%
+        \usebeamerfont{author in head/foot}\insertshortauthor\expandafter\ifblank\expandafter{\beamer@shortinstitute}{}{~~(\insertshortinstitute)}
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.1mm,dp=1mm,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+      \end{beamercolorbox}%
+      \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.1mm,dp=1mm,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{2ex} 
+      \end{beamercolorbox}%
+    }%
+    \vskip0pt%
+  }
+  \setbeamertemplate{frametitle}{%
+    \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+    \@tempdima=\textwidth%
+    \advance\@tempdima by\beamer@leftmargin%
+    \advance\@tempdima by\beamer@rightmargin%
+    \begin{beamercolorbox}[sep=3mm,ht=8mm,leftskip=2.5mm,wd=\the\@tempdima]{frametitle}
+      \usebeamerfont{frametitle}%
+      \vbox{}\vskip-1ex%
+      \if@tempswa\else\csname beamer@fteleft\endcsname\fi%
+      \strut\insertframetitle\par%
+      {%
+        \ifx\insertframesubtitle\@empty%
+        \else%
+        {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\par}%
+        \fi
+      }%
+      \vskip-1ex%
+      \if@tempswa\else\vskip-3mm\fi% set inside beamercolorbox... evil here...
+    \end{beamercolorbox}%
+  }
+  \makeatother
+  % \textwidth = 136mm
+\fi\fi%
+\else\ifdim\beamer@paperwidth=12.80cm%
+  % 4:3
+  \setbeamersize{text margin left=2mm, text margin right=2mm}
+  \ifdefined\shownotes
+    \setbeamerfont{section in head/foot}   {size*={6pt}{8pt}}
+    \setbeamerfont{subsection in head/foot}{size*={6pt}{8pt}}
+    \setbeamerfont{author in head/foot}    {size*={6pt}{8pt}}
+    \setbeamerfont{title in head/foot}     {size*={6pt}{8pt}}
+    \setbeamerfont{date in head/foot}      {size*={6pt}{8pt}}
+    \setbeamerfont{frametitle}{size*={14.4pt}{16pt}}
+    \makeatletter
+    \setbeamertemplate{headline}
+    {%
+      \leavevmode%
+      \hbox{%
+        \begin{beamercolorbox}[wd=.5\paperwidth,ht=1.8mm,dp=.6mm,right]{section in head/foot}%
+          \usebeamerfont{section in head/foot}\insertsectionhead\hspace*{2ex}
+        \end{beamercolorbox}%
+        \begin{beamercolorbox}[wd=.5\paperwidth,ht=1.8mm,dp=.6mm,left]{subsection in head/foot}%
+          \usebeamerfont{subsection in head/foot}\hspace*{2ex}\insertsubsectionhead
+        \end{beamercolorbox}%
+      }%
+      \vskip0pt%
+    }
+    \setbeamertemplate{footline}{}
+    \setbeamertemplate{frametitle}{%
+      \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+      \@tempdima=\textwidth%
+      \advance\@tempdima by\beamer@leftmargin%
+      \advance\@tempdima by\beamer@rightmargin%
+      \begin{beamercolorbox}[sep=2.5mm,ht=6mm,leftskip=2mm,wd=\the\@tempdima]{frametitle}
+        \usebeamerfont{frametitle}%
+        \vbox{}\vskip-1ex%
+        \if@tempswa\else\csname beamer@fteleft\endcsname\fi%
+        \strut\insertframetitle\par%
+        {%
+          \ifx\insertframesubtitle\@empty%
+          \else%
+          {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\par}%
+          \fi
+        }%
+        \vskip-1ex%
+        \if@tempswa\else\vskip-2.5mm\fi% set inside beamercolorbox... evil here...
+      \end{beamercolorbox}%
+    }
+    \makeatother
+  \fi
+  % \textwidth = 122mm
+\fi\fi
+
+\beamertemplatenavigationsymbolsempty
+
+\mode<all>
+
+\usecolortheme{orchid}
+\usecolortheme{dolphin}
+
+\useinnertheme{rectangles}
+
+% Theme colors
+\definecolor{bglightblue}{rgb}{0.9,0.9,1}
+\definecolor{mydarkblue}{rgb}{0,0,0.8}
+\definecolor{bgdarkblue}{rgb}{.1,.1,.72}
+\definecolor{textblue}{rgb}{0.0625,0.0625,0.25}
+\definecolor{textgray}{rgb}{0.4,0.4,0.6}
+
+\setbeamercolor{palette primary}{bg=bgdarkblue!50!bglightblue, fg=white}
+\setbeamercolor{palette secondary}{bg=bgdarkblue!70!bglightblue, fg=white}
+\setbeamercolor{palette tertiary}{bg=bgdarkblue!90!bglightblue, fg=white}
+
+\setbeamercolor{titlelike}{fg=mydarkblue, bg=bglightblue}
+\setbeamercolor{frametitle}{fg=mydarkblue, bg=bglightblue}
+\setbeamercolor{normal text}{fg=textblue}
+\setbeamercolor{sidebar}{bg=bglightblue}
+\setbeamercolor{titlelike}{parent=structure, bg=bglightblue}
+\setbeamercolor{footnote}{fg=textgray}
+\setbeamercolor{block title}{bg=bgdarkblue}
+\setbeamercolor{block body}{bg=bglightblue}
+\setbeamercolor{item}{fg=bgdarkblue}
+\setbeamercolor{subitem}{fg=bgdarkblue}
+\setbeamercolor{subsubitem}{fg=bgdarkblue}
+
+\setbeamercolor{structure}{fg=bgdarkblue}
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[circle]
+\setbeamertemplate{enumerate item}[square]
+\setbeamertemplate{enumerate subitem}[square]
+\setbeamertemplate{enumerate subsubitem}[square]
+\setbeamertemplate{section in toc}[square]
+
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+
+\setbeamercolor{section number projected}{bg=bgdarkblue}
+\setbeamertemplate{subsection in toc}[square]
+\setbeamercolor{subsection number projected}{bg=bgdarkblue}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{block title alerted}{bg=red!80!gray, fg=white}
+\setbeamercolor{block body alerted}{bg=red!15!white}
+
+\ifdefined\shownotes\else
+\RequirePackage{xpatch}
+\xpatchcmd{\itemize}
+  {\def\makelabel}
+  {\ifnum\@itemdepth=1\relax
+     \setlength\itemsep{6pt}% separation for first level
+   \else
+     \ifnum\@itemdepth=2\relax
+       \setlength\itemsep{4pt}% separation for second level
+     \else
+       \ifnum\@itemdepth=3\relax
+         \setlength\itemsep{2pt}% separation for third level
+   \fi\fi\fi\def\makelabel
+  }
+ {}
+ {}
+\fi
+
+\RequirePackage{colortbl}
+\arrayrulecolor{textgray}
+
+\RequirePackage{perpage}
+\MakePerPage{footnote}
+\renewcommand\footnoterule{}
+
+\newenvironment<>{weakblock}[1]{%
+  \setbeamercolor{block title}{fg=white,bg=bgdarkblue!40!gray}%
+  \setbeamercolor{block body}{bg=bglightblue!50!white}%
+  \begin{block}#2{#1}}{\end{block}}
+
+% Define some slide transitions which are by default not defined
+\makeatletter
+  \newcommand<>{\transflyins}[2][]{\only#3{\beamer@dotrans[{#1}]{Fly /M /I /SS #2}}}
+  \newcommand<>{\transflyouts}[2][]{\only#3{\beamer@dotrans[{#1}]{Fly /M /O /SS #2}}}
+  \newcommand<>{\transflyin}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /I}}}
+  \newcommand<>{\transflyout}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /O}}}
+  \newcommand<>{\transflyrectin}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /I /B true}}}
+  \newcommand<>{\transflyrectout}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /O /B true}}}
+\makeatother

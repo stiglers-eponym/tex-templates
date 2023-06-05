@@ -1,0 +1,155 @@
+% Minimalistic beamer theme with almost empty slides
+
+\mode<presentation>
+
+\useoutertheme{infolines}
+\useinnertheme{rectangles}
+
+\usecolortheme{orchid}
+\usecolortheme{dolphin}
+
+% Theme colors
+% This theme is inspired by the CD of RWTH Aachen University.
+% You can adjust myblue and mylightblue to the official RWTH CD colors.
+\definecolor{myblue}{rgb}{0.08 0.28 0.8}
+\definecolor{mylightblue}{rgb}{0.45 0.55 0.95}
+\definecolor{mgray}{gray}{0.85}
+\definecolor{mgray_l}{gray}{0.94}
+
+\definecolor{textblue}{rgb}{0,0.082,0.153}
+\definecolor{textgray}{rgb}{0.4,0.4,0.5}
+
+\setbeamercolor{palette primary}{bg=mylightblue, fg=white}
+\setbeamercolor{palette secondary}{bg=myblue!50!mylightblue, fg=white}
+\setbeamercolor{palette tertiary}{bg=myblue, fg=white}
+
+\setbeamercolor{title}{fg=myblue, bg=mgray_l}
+\setbeamercolor{titlelike}{fg=myblue, bg=mgray}
+\setbeamercolor{frametitle}{fg=myblue, bg=white}
+\setbeamercolor{section in head/foot}{fg=myblue, bg=white}
+\setbeamercolor{subsection in head/foot}{fg=myblue, bg=white}
+\setbeamercolor{page number in head/foot}{fg=myblue, bg=white}
+\setbeamercolor{normal text}{fg=textblue}
+\setbeamercolor{sidebar}{bg=mgray}
+\setbeamercolor{titlelike}{parent=structure, bg=mgray}
+\setbeamercolor{footnote}{fg=textgray}
+\setbeamercolor{block title}{fg=myblue, bg=mgray}
+\setbeamercolor{block body}{fg=textblue, bg=mgray_l}
+\setbeamercolor{item}{fg=myblue}
+\setbeamercolor{subitem}{fg=myblue}
+\setbeamercolor{subsubitem}{fg=myblue}
+
+\setbeamercolor{structure}{fg=myblue}
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}[circle]
+\setbeamertemplate{enumerate item}[square]
+\setbeamertemplate{enumerate subitem}[square]
+\setbeamertemplate{enumerate subsubitem}[square]
+\setbeamertemplate{section in toc}[square]
+
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+
+\setbeamercolor{section number projected}{bg=myblue}
+\setbeamertemplate{subsection in toc}[square]
+\setbeamercolor{subsection number projected}{bg=myblue}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{block title alerted}{bg=red!80!gray, fg=white}
+\setbeamercolor{block body alerted}{bg=red!15!white}
+
+\setbeamercolor{itemize item}{fg=myblue}
+\setbeamercolor{itemize/description item}{fg=myblue}
+
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{sidebar right}{}
+
+% This design is only tested for the slide geometry 16cm x 10cm,
+% where it leads to \textwidth = 144mm
+\setbeamersize{sidebar width left=0mm, sidebar width right=0mm}
+\setbeamersize{text margin left=8mm, text margin right=8mm}
+% Make the title smaller
+\setbeamerfont{section in head/foot}    {size*={9pt}{11pt}}
+\setbeamerfont{subsection in head/foot} {size*={9pt}{11pt}}
+\setbeamerfont{author in head/foot}     {size*={9pt}{11pt}}
+\setbeamerfont{title in head/foot}      {size*={9pt}{11pt}}
+\setbeamerfont{date in head/foot}       {size*={9pt}{11pt}}
+\setbeamerfont{page number in head/foot}{size*={10pt}{12pt}}
+\setbeamerfont{frametitle}{size*={15pt}{18pt}}
+\makeatletter
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{frametitle}{%
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  {%
+    \ifx\insertframesubtitle\@empty%
+      \begin{beamercolorbox}[sep=3.5mm,ht=9mm,leftskip=2mm,wd=\the\@tempdima]{frametitle}
+        \usebeamerfont{frametitle}%
+        \vbox{}\vskip-1ex%
+        \if@tempswa\else\csname beamer@fteleft\endcsname\fi%
+        \strut\insertframetitle\hfill%
+        %\llap{\raisebox{-1.5mm}{\smash\insertlogo}}\par%
+        \llap{\raisebox{1.5mm}{\usebeamercolor[fg]{page number in head/foot}\usebeamerfont{page number in head/foot}\usebeamertemplate{page number in head/foot}\hspace*{1ex}}}\par%
+        %\vskip2pt{\hrule width \pagewidth height 0.5pt}\vskip-2.5pt%
+        \ifbeamer@plainframe\else%
+          \vskip-1.6ex%
+          \vskip2.25pt\hbox{\tikz[overlay]{\fill[myblue,path fading=east] (0,0) rectangle (0.6\@tempdima,0.5pt);}}\vskip-2.25pt%
+        \fi%
+        \vskip-1ex%
+        \if@tempswa\else\vskip-3.5mm\fi% set inside beamercolorbox... evil here...
+      \end{beamercolorbox}%
+    \else%
+      \begin{beamercolorbox}[sep=3.5mm,ht=12mm,leftskip=2mm,wd=\the\@tempdima]{frametitle}
+        \usebeamerfont{frametitle}%
+        \vbox{}\vskip-1ex%
+        \if@tempswa\else\csname beamer@fteleft\endcsname\fi%
+        \strut\insertframetitle\hfill\llap{\raisebox{-1.5mm}{\smash\insertlogo}}\par%
+        \vskip-.25ex%
+        {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\strut\insertframesubtitle\par}%
+        \vskip2pt{\hrule width \pagewidth height 0.5pt}\vskip-2.5pt%
+        \vskip-1ex%
+        \if@tempswa\else\vskip-3.5mm\fi% set inside beamercolorbox... evil here...
+      \end{beamercolorbox}%
+    \fi%
+  }%
+}
+\makeatother
+
+\mode<all>
+
+\ifdefined\shownotes\else
+\RequirePackage{xpatch}
+\xpatchcmd{\itemize}
+  {\def\makelabel}
+  {\ifnum\@itemdepth=1\relax
+     \setlength\itemsep{6pt}% separation for first level
+   \else
+     \ifnum\@itemdepth=2\relax
+       \setlength\itemsep{4pt}% separation for second level
+     \else
+       \ifnum\@itemdepth=3\relax
+         \setlength\itemsep{2pt}% separation for third level
+   \fi\fi\fi\def\makelabel
+  }
+ {}
+ {}
+\fi
+
+\RequirePackage{colortbl}
+\arrayrulecolor{textgray}
+
+\RequirePackage{perpage}
+\MakePerPage{footnote}
+\renewcommand\footnoterule{}
+
+% Define some slide transitions which are by default not defined
+\makeatletter
+  \newcommand<>{\transflyins}[2][]{\only#3{\beamer@dotrans[{#1}]{Fly /M /I /SS #2}}}
+  \newcommand<>{\transflyouts}[2][]{\only#3{\beamer@dotrans[{#1}]{Fly /M /O /SS #2}}}
+  \newcommand<>{\transflyin}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /I}}}
+  \newcommand<>{\transflyout}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /O}}}
+  \newcommand<>{\transflyrectin}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /I /B true}}}
+  \newcommand<>{\transflyrectout}[1][]{\only#2{\beamer@dotrans[{#1}]{Fly /M /O /B true}}}
+\makeatother

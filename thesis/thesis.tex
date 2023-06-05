@@ -1,0 +1,458 @@
+% Template for a thesis (Master/PhD) using KOMA script, fontspec, unicode-math etc.
+% Compile with LuaLaTeX or XeLaTex.
+
+% When writing a thesis, you have basically two options:
+% 1. Use a class/template that works in most situations and try to
+%    avoid changes to it.
+% 2. Use some template that seems to mostly fit your needs and adjust
+%    it further.
+% This template is NOT a good choice for option 1, but maybe it can
+% be used as an example for option 2. This template is basically a
+% combination of more or less ugly configurations and hacks, created
+% for my Master thesis and extended for my PhD thesis.
+
+
+\documentclass[a4paper, twoside, 11pt, open=right]{scrbook}
+
+\newcommand\theauthor{PUT YOUR NAME HERE}
+
+
+%%% FONTS
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setsansfont[
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  SmallCapsFont = *-Regular,
+  SmallCapsFeatures = {Letters=SmallCaps},
+  SlantedFont = *-Regular,
+  SlantedFeatures = {FakeSlant=0.15},
+]{LibertinusSans}
+\setmainfont[
+  UprightFont = *-Regular,
+  BoldFont = *-Semibold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-SemiboldItalic,
+  SmallCapsFont = *-Regular,
+  SmallCapsFeatures = {Letters=SmallCaps},
+  SlantedFont = *-Regular,
+  SlantedFeatures = {FakeSlant=0.15},
+]{LibertinusSerif}
+\setmonofont[
+  UprightFont = *-Regular
+]{LibertinusMono}
+%\setmonofont[
+%  UprightFont = *-Regular,
+%  BoldFont = *-Medium,
+%  ItalicFont = *-It,
+%  BoldItalicFont = *-MediumIt,
+%]{SourceCodePro}
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[math-style=ISO, bold-style=TeX, partial=upright, nabla=upright]{unicode-math}
+\setmathfont{LibertinusMath-Regular.otf}
+\setmathfont[version=bold,RawFeature={embolden=3}]{LibertinusMath-Regular.otf}
+\setmathfont{STIXTwoMath-Regular.otf}[range=cal]
+\setmathfont{STIXTwoMath-Regular.otf}[range=bfcal,version=bold,RawFeature={embolden=3}]
+\setmathfont{STIXTwoMath-Regular.otf}[range=scr,StylisticSet=1]
+\setmathfont{STIXTwoMath-Regular.otf}[range=bfscr,StylisticSet=1,version=bold,RawFeature={embolden=3}]
+\setmathfont{STIXTwoMath-Regular.otf}[range={"02022, "02218, "02200, "0223C, "02248}] % Slightly larger \bullet and \circ; larger \forall; different \sim, \approx
+%\setmathfont{Latin Modern Math}[range={"027F8-"027FA}] % \iff, \implies, \impliedby
+%\setmathfont{STIX Two Math}[range={"027E8, "027E9}] % \langle, \rangle
+\setmathfont{STIXTwoMath-Regular.otf}[range={"0221A-"0221C, "023B7}] % root (sqrt, cbrt, \dots) symbols
+%\setmathfont{STIX Two Math}[range={"023B4, "023B5, "023DC-"023DF}] % underbraces
+%\setmathfont{SIXT}[range={"02110}] % \mathcal{I}
+
+
+%%% PACKAGES
+
+% configure document
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{german}
+
+\usepackage{csquotes}
+\usepackage{microtype}
+
+%% graphics, figures, tables etc.
+  % including graphics
+\usepackage{xcolor}
+\usepackage{graphicx}
+  % floats, figures etc.
+\usepackage{caption}
+\captionsetup{
+  format=plain,
+  labelfont={bf},
+  font={small},
+  margin=.75em
+}
+%\sidecaptionvpos{figure}{c}
+
+% tables
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{bigdelim}
+
+% others
+\usepackage{simpler-wick}
+\usepackage{datetime}
+
+
+
+%%% KOMA SETTINGS
+
+%% page layout
+\linespread{1.0344827586206897}
+\KOMAoptions{
+  headinclude=true,
+  footinclude=false,
+  cleardoublepage=empty,
+  toc=bibliography,
+  titlepage=true,
+  chapterprefix=false,
+  appendixprefix=false,
+}
+\usepackage{scrlayer-scrpage}
+\typearea[12mm]{12}
+
+\RedeclareSectionCommand[beforeskip=2.7ex plus 1.2ex minus .3ex]{paragraph}
+% from https://tex.stackexchange.com/questions/201402/different-style-for-frontmatter-chapters-in-toc
+\makeatletter
+\newcommand\matter@switch{}
+\addtokomafont{chapterentry}{\matter@switch}
+\g@addto@macro\frontmatter{%
+  \addtocontents{toc}{%
+    \protect\renewcommand\protect\matter@switch{\normalfont\itshape}%
+  }%
+  \renewcommand{\raggedchapter}{\centering}%
+  \RedeclareSectionCommand[beforeskip=-4ex]{chapter}%
+  \setkomafont{chapter}{\LARGE\normalfont\scshape}%
+  \pagestyle{plain}%
+  \clearpairofpagestyles{}%
+  \cfoot*{\thepage}%
+}
+\g@addto@macro\mainmatter{%
+  \addtocontents{toc}{%
+    \protect\renewcommand\protect\matter@switch{}%
+  }%
+  \pagestyle{headings}
+  \renewcommand{\raggedchapter}{\raggedright}%
+  \RedeclareSectionCommand[beforeskip=-8ex]{chapter}%
+  \setkomafont{chapter}{\Huge\sffamily\bfseries}%
+  \clearpairofpagestyles{}%
+  \automark[section]{chapter}%
+  \ihead{\headmark}%
+  \ohead{\thepage}%
+  \KOMAoptions{headsepline=true}%
+}
+\g@addto@macro\backmatter{%
+  \addtocontents{toc}{%
+    \protect\renewcommand\protect\matter@switch{\normalfont\itshape}%
+  }%
+  \renewcommand{\raggedchapter}{\centering}%
+  \RedeclareSectionCommand[beforeskip=-4ex]{chapter}%
+  \setkomafont{chapter}{\LARGE\normalfont\scshape}%
+  \pagestyle{plain}%
+  \clearpairofpagestyles{}%
+  \cfoot*{\thepage}%
+}
+\makeatother
+
+\makeatletter
+\newcommand{\@minipagerestore}{%
+  \setlength{\parindent}{\scr@parindent}%
+}
+\makeatother
+
+
+
+%%% CONFIGURE DOCUMENT
+
+%% hyperref properties
+\usepackage{hyperref}
+%\usepackage{url}
+\hypersetup{
+  pdfauthor={\theauthor},%
+  %bookmarks=false,%
+  unicode=true,%
+  pdftoolbar=false,%
+  pdfmenubar=true,%
+  pdffitwindow=false,%
+  %pdfstartview={FitH},%
+  pdftitle={TITLE},%
+  pdfsubject={},%
+  pdfcreator={},%
+  pdfproducer={},%
+  pdfkeywords={},%
+  pdfnewwindow=false,
+  colorlinks=true,%
+  allcolors=.,%
+  citecolor=\ifdefined\citecolor\citecolor\else.\fi,%
+  linkcolor=\ifdefined\linkcolor\linkcolor\else.\fi,%
+  filecolor=\ifdefined\filecolor\filecolor\else.\fi,%
+  urlcolor=\ifdefined\urlcolor\urlcolor\else.\fi,%
+}
+% for \autoref command:
+\def\equationautorefname{Eq.}
+\def\AMSautorefname{Eq.}
+\def\figureautorefname{figure}
+\def\tableautorefname{table}
+%\def\pageautorefname{p.}
+\def\sectionautorefname{section}
+\def\subsectionautorefname{section}
+\def\chapterautorefname{chapter}
+\def\appendixautorefname{appendix}
+%\newcommand\Eq[1]{\hyperref[#1]{Eq.~(\ref*{#1})}}
+%\newcommand\eq[1]{\hyperref[#1]{(\ref*{#1})}}
+
+% for more flexible \cref command (should be used instead of \autoref)
+\usepackage[nameinlink]{cleveref}
+\crefname{section}{section}{sections}
+\Crefname{section}{Section}{Sections}
+\crefname{subsection}{section}{sections}
+\Crefname{subsection}{Section}{Sections}
+\crefname{figure}{figure}{figures}
+\Crefname{figure}{Figure}{Figures}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Eq.}{Eqs.}
+\newcommand\crefrangeconjunction{--}
+\newcommand\Eq[1]{\cref{#1}}
+\newcommand\eq[1]{\labelcref{#1}}
+
+% Generate table of contents in document in a single run
+\usepackage{bookmark}
+
+
+%%% MACROS
+
+%% Easy comments
+\ifdefined\showtodos
+  \newcommand\easycomment[3][]{%
+    #1\ignorespaces%
+    \ifmmode%
+      \text{#2\ignorespaces#3}%
+    \else%
+      {#2 \ignorespaces#3}%
+    \fi%
+  }
+  \newcommand\correct[2][]{%
+    #1\ignorespaces%
+    \ifmmode%
+      \text{\color[rgb]{0.9,0.4,0}\textsc{Correct}: \ignorespaces#2}%
+    \else%
+      {\color[rgb]{0.9,0.4,0}\textsc{Correct}: \ignorespaces#2}%
+    \fi%
+  }
+\else
+  \newcommand\easycomment[3][]{}
+  \newcommand\correct[2][]{#2}
+\fi
+\newcommand\todo[2][]{\easycomment[#1]{\color[rgb]{1,0,0}\textsc{Todo}: }{#2}}
+\newcommand\rewrite[2][]{\easycomment[#1]{\color[rgb]{0.5,0,0.6}\textsc{Rewrite}: }{#2}}
+\newcommand\problem[2][]{\easycomment[#1]{\color[rgb]{.8,0,.5}\textsc{Problem}: }{#2}}
+\newcommand\comment[2][]{\easycomment[#1]{\color[rgb]{0,0,1}\textsc{Comment}: }{#2}}
+
+
+
+%%% REFERENCES
+
+\usepackage[%
+  sorting=none,%
+  backend=biber,%
+  autocite=inline,%
+  style=phys,%
+  biblabel=brackets,%
+  eprint=true,%
+  %url=true,%
+  %doi=true,%
+  %isbn=true,%
+  %backref=true,%
+  %defernumbers=true,%
+]{biblatex}
+\addbibresource{references.bib}
+\BiblatexSplitbibDefernumbersWarningOff
+
+
+% copied from phys.bbx and modified
+\makeatletter
+\DeclareFieldFormat{eprint:arxiv}{%
+  \ifhyperref
+    {\href{https://arxiv.org/\abx@arxivpath/#1}{%
+        arXiv\addcolon
+        \nolinkurl{#1}%
+        \iffieldundef{eprintclass}
+          {}
+          {\addspace\mkbibbrackets{\thefield{eprintclass}}}}}
+    {arXiv\addcolon
+      \nolinkurl{#1}%
+      \iffieldundef{eprintclass}
+        {}
+        {\addspace\mkbibbrackets{\thefield{eprintclass}}}}}
+\makeatother
+
+% copied from phys.bbx and modified
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  \printtext[doi/url-link]{%
+    \usebibmacro{journal+issuetitle}%
+    \newunit
+    \usebibmacro{byeditor+others}%
+    \newunit
+    \usebibmacro{note+pages}%
+    \newunit\newblock
+    \iftoggle{bbx:isbn}
+      {\printfield{issn}}
+      {}%
+    \setunit{\addspace}%
+    \printfield{year}%
+  }%
+  \setunit{\addspace}%
+  \usebibmacro{doi+eprint+url}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \usebibmacro{finentry}%
+}
+
+% copied from phys.bbx and modified to include link to doi/url
+
+\renewbibmacro*{publisher+location+date}{%
+  \setunit{\addspace}%
+  \printtext[parens]{%
+    \printtext[doi/url-link]{%
+      \printlist{publisher}%
+      \newunit
+      \printlist{location}%
+      \newunit
+      \usebibmacro{date}%
+    }%
+  }%
+  \newunit
+}
+
+\renewbibmacro*{institution+location+date}{%
+  \setunit{\addspace}%
+  \printtext[parens]{%
+    \printtext[doi/url-link]{%
+      \printlist{institution}%
+      \newunit
+      \printlist{location}%
+      \newunit
+      \usebibmacro{date}%
+    }%
+  }%
+}
+
+
+
+\DeclareBibliographyCategory{mypapers}
+\addtocategory{mypapers}{ADD YOUR PAPERS HERE}
+
+% TODO: Find your hash in the biblatex file (main.bbl) generated by biber:
+% Search for an entry showing your name (e.g. search by family name). You
+% should find the hash. Insert this hash here to mark your name in all
+% bibliography entries.
+\edef\authorhash{\detokenize{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}}
+
+% Mark own name in bold in all bibliography entries
+\renewcommand{\mkbibnamegiven}[1]{%
+  \iffieldequals{hash}{\authorhash}{\mkbibbold{#1}}{#1}}
+\renewcommand{\mkbibnamefamily}[1]{%
+  \iffieldequals{hash}{\authorhash}{\mkbibbold{#1}}{#1}}
+\renewcommand{\mkbibnameprefix}[1]{%
+  \iffieldequals{hash}{\authorhash}{\mkbibbold{#1}}{#1}}
+\renewcommand{\mkbibnamesuffix}[1]{%
+  \iffieldequals{hash}{\authorhash}{\mkbibbold{#1}}{#1}}
+
+% punctuation: probably the first line could be left out.
+\DefineBibliographyExtras{english}{\stdpunctuation}
+\DefineBibliographyExtras{american}{\stdpunctuation}
+
+
+
+%%% DOCUMENT
+
+\begin{document}
+  \frontmatter%
+  % Add you title page:
+  \begin{german}%
+    \input{titlepage}
+  \end{german}
+  \cleardoublepage
+  % Add your abstract here:
+  \addchap{Abstract}
+  \input{abstract}
+  \cleardoublepage
+  %
+  % Add a translated version of the abstract (if required):
+  %\begin{german}
+  %  \addchap{Zusammenfassung}
+  %  \input{abstract-de}
+  %\end{german}
+  %\cleardoublepage%
+  %
+  \tableofcontents%
+  \cleardoublepage%
+  \nocite{ADD YOUR PAPERS HERE}%
+
+  \mainmatter
+
+  % Put your content here:
+  %\input{...}
+
+  %%% appendices and references
+  \appendix%
+  \cleardoublepage%
+  % Create one top-level bookmark entry for appendices in PDF outline
+  \hypertarget{appendices}{}%
+  \bookmark[level=part, dest={appendices}]{Appendices}%
+
+  % Put your appendices here:
+  %\input{...}
+
+  \cleardoublepage%
+  \bookmarksetup{startatroot}%
+  % First show own papers
+  \printbibliography[category=mypapers,title=Publications]
+  % Then show other papers
+  \printbibliography[notcategory=mypapers]
+
+  \backmatter
+
+  \begin{center}
+    \begin{minipage}[t][.75\textheight][c]{.875\textwidth}
+      \addchap{Acknowledgments}
+      %\input{acknowledgments}
+    \end{minipage}
+  \end{center}
+  \cleardoublepage
+
+  % Append formal requirement of your university, e.g.:
+  %\begin{german}
+  %  \input{eidesstattliche_erklaerung}
+  %\end{german}
+\end{document}

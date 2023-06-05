@@ -1,0 +1,139 @@
+% Example preamble of a LaTeX beamer presentation.
+
+\documentclass[aspectratio=1610, 10pt, t]{beamer}
+
+%%% FONTS
+
+\usefonttheme{professionalfonts}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+%\setsansfont{LiberationSans-Regular}
+%\setsansfont{OpenSans Regular}
+\setsansfont[
+  UprightFont = SourceSansPro-Regular,
+  BoldFont = SourceSansPro-Semibold,
+  ItalicFont = SourceSansPro-It,
+  BoldItalicFont = SourceSansPro-SemiboldIt,
+  Scale = MatchUppercase,
+]{SourceSansPro}
+\setmainfont[
+  UprightFont = LibertinusSans-Regular,
+  BoldFont = LibertinusSans-Bold,
+  ItalicFont = LibertinusSans-Italic,
+  BoldItalicFont = LibertinusSerif-BoldItalic,
+  Scale = MatchUppercase,
+]{LibertinusSans}
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[math-style=ISO, bold-style=TeX, partial=upright, nabla=upright]{unicode-math}
+\setmathfont[Scale = MatchUppercase]{Libertinus Math}
+\setmathfont{STIX Two Math}[range=cal]
+\setmathfont{STIX Two Math}[range={\mathscr},StylisticSet=1]
+\setmathfont{STIX Two Math}[range={"02022, "02218, "02200, "0223C, "02248}] % Slightly larger \bullet and \circ; larger \forall; different \sim, \approx
+%\setmathfont{STIX Two Math}[range={"027E8, "027E9}] % \langle, \rangle
+\setmathfont{STIX Two Math}[range={"0221A-"0221C, "023B7}] % root (sqrt, cbrt, \dots) symbols
+%\setmathfont{STIX Two Math}[range={"023B4, "023B5, "023DC-"023DF}] % underbraces 
+
+
+
+%%% PACKAGES
+
+%% global packages
+  % configure document
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage{csquotes}
+  % others
+\usepackage{calc} % \widthof{...}, extends \setlength?
+%\usepackage{appendixnumberbeamer}
+
+%% graphics, figures, tables etc.
+\usepackage{array}
+\usepackage{booktabs}
+
+
+
+%%% LAYOUT
+
+\usetheme{White}
+
+%%% NEW COMMANDS
+
+%% Easy comments
+
+\ifdefined\showtodos
+  % base function for comments, which will be hidden if showtodos is not defined
+  \newcommand\easycomment[3][]{%
+    #1\ignorespaces%
+    \ifmmode%
+      \text{#2\ignorespaces#3}%
+    \else%
+      {#2 \ignorespaces#3}%
+    \fi%
+  }
+  % Text in \correct will be shown as normal text if showtodos is not defined
+  \newcommand\correct[2][]{%
+    #1\ignorespaces%
+    \ifmmode%
+      \text{\color[rgb]{0.9,0.4,0}\textsc{Correct}: \ignorespaces#2}%
+    \else%
+      {\color[rgb]{0.9,0.4,0}\textsc{Correct}: \ignorespaces#2}%
+    \fi%
+  }
+\else
+  \newcommand\easycomment[3][]{}
+  \newcommand\correct[2][]{#2}
+\fi
+% Text in todo will be hidden if showtodos is not defined
+\newcommand\todo[2][]{\easycomment[#1]{\small\color[rgb]{1,0,0}\textsc{Todo}: }{#2}}
+\newcommand\question[2][]{\easycomment[#1]{\color{green}\textsc{Question}: }{#2}}
+
+
+
+\newcommand{\backupbegin}{
+  \newcounter{framenumberappendix}
+  \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumberappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumberappendix}}
+}
+
+
+%% hyperref properties
+\usepackage{url}
+\hypersetup{
+  %bookmarks=false,%
+  unicode=true,%
+  pdftoolbar=false,%
+  pdfmenubar=true,%
+  pdffitwindow=true,%
+  pdfstartview={Fit},%
+  pdfsubject={},%
+  pdfcreator={},%
+  pdfproducer={},%
+  pdfkeywords={},%
+  pdfnewwindow=false,%
+  colorlinks=false,%
+}
+
+
+\title[SHORT TITLE]{TITLE}
+\author{AUTHOR}
+\date{\today}
+\institute[]{\small INSTITUTE,\\UNIVERSITY}
+
+
+%%% DOCUMENT
+
+\begin{document}
+  \frame{\titlepage}
+  % Put your content here:
+  %\input{...}
+  \appendix
+  \backupbegin
+  % Put your backup slides here:
+  %\input{...}
+  \backupend
+\end{document}

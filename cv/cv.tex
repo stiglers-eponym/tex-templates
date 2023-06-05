@@ -1,0 +1,98 @@
+\documentclass[english]{my_cv}
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\setsansfont[
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  SmallCapsFont = *-Regular,
+  SmallCapsFeatures = {Letters=SmallCaps},
+  SlantedFont = *-Regular,
+  SlantedFeatures = {FakeSlant=0.125},
+]{LibertinusSans}
+\setmainfont[
+  UprightFont = *-Regular,
+  BoldFont = *-Semibold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-SemiboldItalic,
+  SmallCapsFont = *-Regular,
+  SmallCapsFeatures = {Letters=SmallCaps},
+  SlantedFont = *-Regular,
+  SlantedFeatures = {FakeSlant=0.125},
+]{LibertinusSerif}
+\setmonofont[
+  UprightFont = *-Regular,
+  BoldFont = *-Medium,
+  ItalicFont = *-It,
+  BoldItalicFont = *-MediumIt,
+]{SourceCodePro}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\usepackage{csquotes}
+\usepackage{microtype}
+
+\subtitle{Curriculum Vitae}
+
+\name{Smith}{John}
+%\nametitle{Dr.}
+\mobile[123456789]{123\,456\,789}
+\email{john.smith@example.org}
+\address{Example Street 123}{Some City}{}{}
+\homepage[https://...]{...}
+\github[https://github.com/...]{github.com/...}
+%\orcid{0000-0000-0000-0000}
+%\linkedin[https://www.linkedin.com/in/...]{linkedin.com/in/...}
+
+\begin{document}
+\maketitle%
+\color{textcolor}%
+
+\section{Main qualifications}
+\begin{description}[align=left, labelwidth=\cvcolumnwidth+0.5\tabcolsep, leftmargin=\cvcolumnwidth+2\tabcolsep, labelsep=1.5\tabcolsep, format={\color{leftcolumncolor}}]
+  \item[Writing useless \LaTeX templates]
+    This example text should briefly describe this important qualification, but it can span multiple lines.
+  \item[Qualification A]
+    \begin{itemize}
+      \item This is more complicated
+      \item It needs bullet points
+    \end{itemize}
+\end{description}
+
+\begin{cvsection}{Education}
+  \cventry{2023}{Master of Whatever}{very good}{University of XXX}{%
+    \setaside{Topic:}{\enquote{Very long title of an extremely relevant master thesis that requires two lines},}\newline
+    \begin{itemize}
+      \item Add some explanation here
+      \item Mainly focus on what you have learned by working on this thesis
+    \end{itemize}
+  }
+  \cventry{2021}{Bachelor of Whatever}{passed}{University of XXX}{%
+    ...
+  }
+\end{cvsection}
+
+\begin{cvsection}{Simple list section}
+  \cvitem{Keyword}{short explanation
+  \begin{itemize}
+    \item possibly with bullet points
+    \item in case this is very relevant
+  \end{itemize}
+  }
+  \cvitem{Longer keyword}{yet another example text}
+\end{cvsection}
+
+\section{Special Skills}
+\begin{description}[align=left, labelwidth=\cvcolumnwidth+0.5\tabcolsep, leftmargin=\cvcolumnwidth+2\tabcolsep, labelsep=1.5\tabcolsep, format={\color{leftcolumncolor}}]
+  \descritem{Topic A}%
+    \begin{litemize}%
+      \litem{4} skill A.1 with brief description
+      \litem{3} skill A.2 with brief description
+    \end{litemize}
+  \descritem{Topic B}
+    \begin{litemize}
+      \litem{4} skill B.1 with brief description
+      \litem{2} skill B.2 with brief description
+    \end{litemize}
+\end{description}
+
+\end{document}
